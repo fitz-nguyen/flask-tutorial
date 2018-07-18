@@ -7,7 +7,7 @@ def create_app(test_config=None):
     app = Flask(__name__, instance_relative_config=True)
     app.config.from_mapping(
         SECRET_KEY='dev',
-        DATABASSE=os.path.join(app.instance_path, 'flask.sqlite'),
+        DATABASE=os.path.join(app.instance_path, 'flask.sqlite'),
     )
     if test_config is None:
         # load the instance config, if it exits, when not testing
@@ -22,8 +22,7 @@ def create_app(test_config=None):
         pass
 
     # a simple page thar says hello
-    @app.route('/hello')
-    def hello():
-        return 'Hello, world!'
+    from . import db
+    db.init_app(app)
 
     return app
