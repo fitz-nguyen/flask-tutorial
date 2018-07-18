@@ -21,8 +21,10 @@ def create_app(test_config=None):
     except OSError:
         pass
 
-    # a simple page thar says hello
     from . import db
     db.init_app(app)
 
+    from . import auth
+    app.register_blueprint(auth.bp)
+    
     return app
